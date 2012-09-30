@@ -15,11 +15,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "USAppDelegate.h"
-
-int main(int argc, char *argv[])
-{
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([USAppDelegate class]));
-    }
-}
+@interface USCustomContainerViewController : UIViewController
+-(IBAction)unwind:(UIStoryboardSegue *)sender;
+@end

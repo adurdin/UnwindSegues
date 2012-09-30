@@ -12,14 +12,23 @@
 // TORTIOUS ACTION, ARISING  OUT OF OR IN  CONNECTION WITH THE USE  OR PERFORMANCE OF
 // THIS SOFTWARE.
 //
+#import "USCustomContainmentSegue.h"
 
-#import <UIKit/UIKit.h>
+@implementation USCustomContainmentSegue
 
-#import "USAppDelegate.h"
-
-int main(int argc, char *argv[])
-{
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([USAppDelegate class]));
-    }
+-(void) perform {
+    UIViewController *container = [self sourceViewController];
+    UIViewController *child = [self destinationViewController];
+    [container addChildViewController:child];
+    [container.view addSubview:child.view];
+    child.view.center = container.view.center;
+    [UIView transitionWithView:container.view
+                      duration:0.35
+                       options:UIViewAnimationOptionCurveEaseInOut
+                    animations:^{
+                        child.view.alpha = 1;
+                    } completion:^(BOOL finished) {
+                        [child didMoveToParentViewController:container];
+                    }];
 }
+@end

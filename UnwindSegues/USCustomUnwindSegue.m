@@ -13,13 +13,17 @@
 // THIS SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+#import "USCustomUnwindSegue.h"
 
-#import "USAppDelegate.h"
+@implementation USCustomUnwindSegue
 
-int main(int argc, char *argv[])
-{
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([USAppDelegate class]));
-    }
+-(id) initWithIdentifier:(NSString *)identifier source:(UIViewController *)source destination:(UIViewController *)destination {
+    self = [super initWithIdentifier:identifier source:source destination:destination];
+    NSLog(@"Initializing unwind segue");
+    return self;
 }
+
+-(void) perform {
+    NSLog(@"this is never called, the crash happens before this is even allocated %@", self);
+}
+@end

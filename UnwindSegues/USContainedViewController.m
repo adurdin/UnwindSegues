@@ -13,13 +13,14 @@
 // THIS SOFTWARE.
 //
 
-#import <UIKit/UIKit.h>
+#import "USContainedViewController.h"
+#import "USCustomUnwindSegue.h"
 
-#import "USAppDelegate.h"
-
-int main(int argc, char *argv[])
-{
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([USAppDelegate class]));
-    }
+@implementation USContainedViewController
+-(UIStoryboardSegue *) segueForUnwindingToViewController:(UIViewController *)toViewController
+                                      fromViewController:(UIViewController *)fromViewController
+                                              identifier:(NSString *)identifier {
+    NSLog(@"calling segueForUnwindingToViewController on the child");
+    return [[USCustomUnwindSegue alloc] initWithIdentifier:identifier source:fromViewController destination:toViewController];
 }
+@end

@@ -17,7 +17,10 @@
 		E62ABD0A1618EEF60070C5DB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E62ABD091618EEF60070C5DB /* Default@2x.png */; };
 		E62ABD0C1618EEF60070C5DB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E62ABD0B1618EEF60070C5DB /* Default-568h@2x.png */; };
 		E62ABD0F1618EEF60070C5DB /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E62ABD0D1618EEF60070C5DB /* MainStoryboard.storyboard */; };
-		E62ABD121618EEF60070C5DB /* USViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E62ABD111618EEF60070C5DB /* USViewController.m */; };
+		E62ABD1A1618EF650070C5DB /* USCustomContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E62ABD191618EF650070C5DB /* USCustomContainerViewController.m */; };
+		E62ABD1D1618EF7E0070C5DB /* USContainedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E62ABD1C1618EF7E0070C5DB /* USContainedViewController.m */; };
+		E62ABD201618EFE40070C5DB /* USCustomContainmentSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = E62ABD1F1618EFE40070C5DB /* USCustomContainmentSegue.m */; };
+		E62ABD231618F2B50070C5DB /* USCustomUnwindSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = E62ABD221618F2B50070C5DB /* USCustomUnwindSegue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,8 +38,14 @@
 		E62ABD091618EEF60070C5DB /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		E62ABD0B1618EEF60070C5DB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E62ABD0E1618EEF60070C5DB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		E62ABD101618EEF60070C5DB /* USViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = USViewController.h; sourceTree = "<group>"; };
-		E62ABD111618EEF60070C5DB /* USViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = USViewController.m; sourceTree = "<group>"; };
+		E62ABD181618EF650070C5DB /* USCustomContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USCustomContainerViewController.h; sourceTree = "<group>"; };
+		E62ABD191618EF650070C5DB /* USCustomContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USCustomContainerViewController.m; sourceTree = "<group>"; };
+		E62ABD1B1618EF7E0070C5DB /* USContainedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USContainedViewController.h; sourceTree = "<group>"; };
+		E62ABD1C1618EF7E0070C5DB /* USContainedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USContainedViewController.m; sourceTree = "<group>"; };
+		E62ABD1E1618EFE40070C5DB /* USCustomContainmentSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USCustomContainmentSegue.h; sourceTree = "<group>"; };
+		E62ABD1F1618EFE40070C5DB /* USCustomContainmentSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USCustomContainmentSegue.m; sourceTree = "<group>"; };
+		E62ABD211618F2B50070C5DB /* USCustomUnwindSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = USCustomUnwindSegue.h; sourceTree = "<group>"; };
+		E62ABD221618F2B50070C5DB /* USCustomUnwindSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = USCustomUnwindSegue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,9 +95,15 @@
 				E62ABD041618EEF60070C5DB /* USAppDelegate.h */,
 				E62ABD051618EEF60070C5DB /* USAppDelegate.m */,
 				E62ABD0D1618EEF60070C5DB /* MainStoryboard.storyboard */,
-				E62ABD101618EEF60070C5DB /* USViewController.h */,
-				E62ABD111618EEF60070C5DB /* USViewController.m */,
 				E62ABCFC1618EEF60070C5DB /* Supporting Files */,
+				E62ABD181618EF650070C5DB /* USCustomContainerViewController.h */,
+				E62ABD191618EF650070C5DB /* USCustomContainerViewController.m */,
+				E62ABD1B1618EF7E0070C5DB /* USContainedViewController.h */,
+				E62ABD1C1618EF7E0070C5DB /* USContainedViewController.m */,
+				E62ABD1E1618EFE40070C5DB /* USCustomContainmentSegue.h */,
+				E62ABD1F1618EFE40070C5DB /* USCustomContainmentSegue.m */,
+				E62ABD211618F2B50070C5DB /* USCustomUnwindSegue.h */,
+				E62ABD221618F2B50070C5DB /* USCustomUnwindSegue.m */,
 			);
 			path = UnwindSegues;
 			sourceTree = "<group>";
@@ -176,7 +191,10 @@
 			files = (
 				E62ABD021618EEF60070C5DB /* main.m in Sources */,
 				E62ABD061618EEF60070C5DB /* USAppDelegate.m in Sources */,
-				E62ABD121618EEF60070C5DB /* USViewController.m in Sources */,
+				E62ABD1A1618EF650070C5DB /* USCustomContainerViewController.m in Sources */,
+				E62ABD1D1618EF7E0070C5DB /* USContainedViewController.m in Sources */,
+				E62ABD201618EFE40070C5DB /* USCustomContainmentSegue.m in Sources */,
+				E62ABD231618F2B50070C5DB /* USCustomUnwindSegue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
