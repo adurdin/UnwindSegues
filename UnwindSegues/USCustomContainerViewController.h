@@ -16,5 +16,4 @@
 #import <UIKit/UIKit.h>
 
 @interface USCustomContainerViewController : UIViewController
--(IBAction)unwind:(UIStoryboardSegue *)sender;
 @end

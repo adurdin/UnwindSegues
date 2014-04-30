@@ -16,18 +16,80 @@
 #import "USCustomContainerViewController.h"
 #import "USCustomUnwindSegue.h"
 
+
+@interface USCustomContainerRootViewController : UIViewController
+@end
+
+/*
+ So, it turns out that a custom container VC should never return YES to
+ canPerformUnwindSegueAction:fromViewController:withSender:, even if it
+ is meant to be the destination of the unwind.  If it does, then no matter
+ which VC it returns from viewControllerForUnwindSegueAction:fromViewController:withSender:,
+ the segueForUnwindingToViewController:fromViewController:identifier: method
+ is never called, and the app terminates with an NSInternalInconsistencyException
+ "Could not find a view controller to execute unwinding for [the container VC]".
+
+ It seems that the unwind segue mechanism, when it gets a view controller back
+ from viewControllerForUnwindSegueAction:fromViewController:withSender, looks up that
+ VC's parentViewController to ask it for segueForUnwindingToViewController:fromViewController:identifier.
+ And it assert that the parentViewController is not nil.
+
+ Now the default canPerformUnwindSegueAction:fromViewController:withSender:
+ behaviour is to return YES if the VC responds to the action selector. So because
+ USCustomContainerViewController implements -unwind:, it by default return YES to
+ canPerformUnwindSegueAction..., and by default returns itself from -viewControllerForUnwindSegueAction...,
+ and then because its parentViewController is nil, it all thing goes up in smoke.
+
+ This workaround has a 'root' UIViewController subclass for this container
+ that implements the unwind: method, and keeps it as a child controllers. Then
+ unwinding to this root controller is always possible. The root controller's
+ view is always hidden, with interaction disabled, so that it is never seen and
+ preserves the appearance of unwinding back to just the container.
+ */
+@implementation USCustomContainerRootViewController
+
+- (void)viewDidLoad
+{
+    self.view.hidden = YES;
+    self.view.userInteractionEnabled = NO;
+}
+
+- (IBAction)unwind:(UIStoryboardSegue *)segue
+{
+    NSLog(@"unwind segue being called with sender %@", segue);
+}
+
+@end
+
 @implementation USCustomContainerViewController
 
-
--(IBAction)unwind:(UIStoryboardSegue *)sender {
-    NSLog(@"unwind segue being called with sender %@", sender);
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+        UIViewController *root = [[USCustomContainerRootViewController alloc] initWithNibName:nil bundle:nil];
+        [self addChildViewController:root];
+    }
+    return self;
 }
+
+- (void)awakeFromNib
+{
+    UIViewController *root = [[USCustomContainerRootViewController alloc] initWithNibName:nil bundle:nil];
+    [self addChildViewController:root];
+    [root.view setFrame:self.view.bounds];
+    [self.view addSubview:root.view];
+    [root didMoveToParentViewController:self];
+}
+
 -(UIViewController *) viewControllerForUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController withSender:(id)sender {
+
     NSLog(@"looking for a destination view controller for segue action %@", NSStringFromSelector(action));
-    id defaultViewControllerForUnwindSegueAction = [super viewControllerForUnwindSegueAction:action fromViewController:fromViewController withSender:sender];
-    NSLog(@"found %@", defaultViewControllerForUnwindSegueAction);
-    NSAssert1(defaultViewControllerForUnwindSegueAction == self, @"Expected the default view controller to be self but was %@", defaultViewControllerForUnwindSegueAction);
-    return defaultViewControllerForUnwindSegueAction;
+    for (UIViewController *child in self.childViewControllers) {
+        if ([child canPerformUnwindSegueAction:action fromViewController:fromViewController withSender:sender]) {
+            return child;
+        }
+    }
+    return [super viewControllerForUnwindSegueAction:action fromViewController:fromViewController withSender:sender];
 }
 
 -(UIStoryboardSegue *) segueForUnwindingToViewController:(UIViewController *)toViewController
@@ -39,7 +101,7 @@
 
 -(BOOL) canPerformUnwindSegueAction:(SEL)action fromViewController:(UIViewController *)fromViewController withSender:(id)sender {
     NSLog(@"checking if container canPerformUnwindSegueAction:%@", NSStringFromSelector(action));
-    return YES;
+    return [super canPerformUnwindSegueAction:action fromViewController:fromViewController withSender:sender];
 }
 
 @end

@@ -24,6 +24,9 @@
 }
 
 -(void) perform {
-    NSLog(@"this is never called, the crash happens before this is even allocated %@", self);
+    UIViewController *sourceViewController = self.sourceViewController;
+    [sourceViewController willMoveToParentViewController:nil];
+    [sourceViewController.view removeFromSuperview];
+    [sourceViewController removeFromParentViewController];
 }
 @end
